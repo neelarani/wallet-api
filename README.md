@@ -1,15 +1,19 @@
-# Neela Wallet API
+# Ababil Wallet API
 
-A **secure**, **scalable**, and **feature-rich** RESTful API built with **Express.js**, **TypeScript**, and **MongoDB** — powering the core operations of the `Neela Wallet System`.
+A **secure**, **scalable**, and **feature-rich** RESTful API built with
+**Express.js**, **TypeScript**, and **MongoDB** — powering the core operations
+of the `Ababil Wallet System`.
 
-From user onboarding to wallet management, from transaction tracking to balance operations — everything is handled with clean code architecture, centralized error handling, and Zod validation for peace of mind.
+From user onboarding to wallet management, from transaction tracking to balance
+operations — everything is handled with clean code architecture, centralized
+error handling, and Zod validation for peace of mind.
 
 ## 🌐 Base URL
 
-| Environment | URL                                          |
-| ----------- | -------------------------------------------- |
-| Development | `http://localhost:<PORT>/api/v1`             |
-| Production  | `https://neela-wallet-api.vercel.app/api/v1` |
+| Environment | URL                                           |
+| ----------- | --------------------------------------------- |
+| Development | `http://localhost:<PORT>/api/v1`              |
+| Production  | `https://ababil-wallet-api.vercel.app/api/v1` |
 
 ## 🚀 Key Features
 
@@ -24,7 +28,7 @@ From user onboarding to wallet management, from transaction tracking to balance 
 ## 📁 Project Structure
 
 ```bash
-~/neela-wallet-api
+~/ababil-wallet-api
 ├── scripts/                  # Shell scripts
 │   ├── app.sh
 │   └── push.sh
@@ -107,7 +111,7 @@ POST /auth/login
 ### URL
 
 ```
-https://neela-wallet-api.vercel.app/api/v1/auth/login
+https://ababil-wallet-api.vercel.app/api/v1/auth/login
 ```
 
 ### Request Body
@@ -140,8 +144,7 @@ https://neela-wallet-api.vercel.app/api/v1/auth/login
 }
 ```
 
-> ✅ See more endpoints:
-> 🔗 [View Full Collection in Postman](https://www.postman.com/ababil-team/my-public/collection/x1vduj9/neela-wallet-api)
+> ✅ See more endpoints: 🔗 [View Full Collection in Postman]('')
 
 ## 🛠 Tech Stack
 
@@ -159,8 +162,8 @@ https://neela-wallet-api.vercel.app/api/v1/auth/login
 
 ```bash
 # 1. Clone the repo
-git clone https://gitlab.com/DevAbabil/neela-wallet-api
-cd neela-wallet-api
+git clone https://gitlab.com/neelarani/ababil-wallet-api
+cd ababil-wallet-api
 
 # 2. Install dependencies
 npm install
@@ -174,5 +177,4 @@ npm run dev
 
 ## ❤️ Made with Love
 
-This `assignment` was built with dedication and care for **`Neela`**, my inspiration and heartbeat 💙.
-Every line of code carries her name, her smile, and her support.
+Neela
