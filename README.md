@@ -1,8 +1,8 @@
-# Ababil Wallet API
+# Wallet API
 
 A **secure**, **scalable**, and **feature-rich** RESTful API built with
 **Express.js**, **TypeScript**, and **MongoDB** — powering the core operations
-of the `Ababil Wallet System`.
+of the ` Wallet System`.
 
 From user onboarding to wallet management, from transaction tracking to balance
 operations — everything is handled with clean code architecture, centralized
@@ -10,10 +10,10 @@ error handling, and Zod validation for peace of mind.
 
 ## 🌐 Base URL
 
-| Environment | URL                                           |
-| ----------- | --------------------------------------------- |
-| Development | `http://localhost:<PORT>/api/v1`              |
-| Production  | `https://ababil-wallet-api.vercel.app/api/v1` |
+| Environment | URL                                    |
+| ----------- | -------------------------------------- |
+| Development | `http://localhost:<PORT>/api/v1`       |
+| Production  | `https://wallet-app.vercel.app/api/v1` |
 
 ## 🚀 Key Features
 
@@ -28,7 +28,7 @@ error handling, and Zod validation for peace of mind.
 ## 📁 Project Structure
 
 ```bash
-~/ababil-wallet-api
+~/wallet-app
 ├── scripts/                  # Shell scripts
 │   ├── app.sh
 │   └── push.sh
@@ -111,7 +111,7 @@ POST /auth/login
 ### URL
 
 ```
-https://ababil-wallet-api.vercel.app/api/v1/auth/login
+https://wallet-app.vercel.app/api/v1/auth/login
 ```
 
 ### Request Body
@@ -162,8 +162,8 @@ https://ababil-wallet-api.vercel.app/api/v1/auth/login
 
 ```bash
 # 1. Clone the repo
-git clone https://gitlab.com/neelarani/ababil-wallet-api
-cd ababil-wallet-api
+git clone https://gitlab.com/neelarani/wallet-app
+cd wallet-app
 
 # 2. Install dependencies
 npm install
