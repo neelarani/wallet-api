@@ -65,7 +65,7 @@ const config_1 = require("../../../config");
 const user_model_1 = require("../user/user.model");
 const wallet_model_1 = require("../wallet/wallet.model");
 exports.credentialLogin = (0, shared_1.catchAsync)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    passport_1.default.authenticate("local", (err, user, info) => __awaiter(void 0, void 0, void 0, function* () {
+    passport_1.default.authenticate('local', (err, user, info) => __awaiter(void 0, void 0, void 0, function* () {
         if (err)
             return next(new errors_1.AppError(shared_1.HTTP_CODE.UNAUTHORIZED, err));
         if (!user)
@@ -76,7 +76,7 @@ exports.credentialLogin = (0, shared_1.catchAsync)((req, res, next) => __awaiter
         (0, shared_1.sendResponse)(res, {
             success: true,
             status: shared_1.HTTP_CODE.CREATED,
-            message: "User logged successfully",
+            message: 'User logged successfully',
             data: { tokens, user: rest },
         });
     }))(req, res, next);
@@ -87,27 +87,27 @@ exports.getNewAccessToken = (0, shared_1.catchAsync)((req, res) => __awaiter(voi
     (0, shared_1.sendResponse)(res, {
         success: true,
         status: shared_1.HTTP_CODE.CREATED,
-        message: "New access token successfully generated",
+        message: 'New access token successfully generated',
         data: tokenInfo,
     });
 }));
 exports.logout = (0, shared_1.catchAsync)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    res.clearCookie("accessToken", {
+    res.clearCookie('accessToken', {
         httpOnly: true,
         secure: true,
-        sameSite: "none",
+        sameSite: 'none',
         maxAge: 0,
     });
-    res.clearCookie("refreshToken", {
+    res.clearCookie('refreshToken', {
         httpOnly: true,
         secure: true,
-        sameSite: "none",
+        sameSite: 'none',
         maxAge: 0,
     });
     (0, shared_1.sendResponse)(res, {
         success: true,
         status: shared_1.HTTP_CODE.OK,
-        message: "Logged Out",
+        message: 'Logged Out',
     });
 }));
 exports.getVerifyUserSecret = (0, shared_1.catchAsync)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -132,7 +132,7 @@ exports.setPassword = (0, shared_1.catchAsync)((req, res) => __awaiter(void 0, v
     (0, shared_1.sendResponse)(res, {
         success: true,
         status: shared_1.HTTP_CODE.CREATED,
-        message: "Password has been reset successfully!",
+        message: 'Password has been reset successfully!',
         data: yield service.setPassword(req.user.userId, (_a = req.body) === null || _a === void 0 ? void 0 : _a.password),
     });
 }));
@@ -141,7 +141,7 @@ exports.forgotPassword = (0, shared_1.catchAsync)((req, res) => __awaiter(void 0
     (0, shared_1.sendResponse)(res, {
         success: true,
         status: shared_1.HTTP_CODE.CREATED,
-        message: "Reset Password Email has been sended!",
+        message: 'Reset Password Email has been sended!',
         data: yield service.forgotPassword((_a = req.body) === null || _a === void 0 ? void 0 : _a.email),
     });
 }));
@@ -149,7 +149,7 @@ exports.resetPassword = (0, shared_1.catchAsync)((req, res) => __awaiter(void 0,
     (0, shared_1.sendResponse)(res, {
         success: true,
         status: shared_1.HTTP_CODE.CREATED,
-        message: "Password has been reset successfully!",
+        message: 'Password has been reset successfully!',
         data: yield service.resetPassword(req.body.password, req.query.resetToken),
     });
 }));
@@ -157,14 +157,14 @@ exports.changePassword = (0, shared_1.catchAsync)((req, res) => __awaiter(void 0
     (0, shared_1.sendResponse)(res, {
         success: true,
         status: shared_1.HTTP_CODE.CREATED,
-        message: "Password has been changed successfully!",
+        message: 'Password has been changed successfully!',
         data: yield service.changePassword(req.body.oldPassword, req.body.newPassword, req.user),
     });
 }));
 exports.googleLogin = (0, shared_1.catchAsync)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const redirect = req.query.redirect || "/";
-    passport_1.default.authenticate("google", {
-        scope: ["profile", "email"],
+    const redirect = req.query.redirect || '/';
+    passport_1.default.authenticate('google', {
+        scope: ['profile', 'email'],
         state: redirect,
     })(req, res, next);
 }));
@@ -172,7 +172,7 @@ exports.googleCallback = (0, shared_1.catchAsync)((req, res) => __awaiter(void 0
     var _a;
     const user = req.user;
     if (!user)
-        throw new errors_1.AppError(shared_1.HTTP_CODE.NOT_FOUND, "User Not Found!");
+        throw new errors_1.AppError(shared_1.HTTP_CODE.NOT_FOUND, 'User Not Found!');
     let wallet = yield wallet_model_1.Wallet.findOne({ user: user._id });
     if (!wallet) {
         wallet = yield wallet_model_1.Wallet.create({
@@ -184,5 +184,5 @@ exports.googleCallback = (0, shared_1.catchAsync)((req, res) => __awaiter(void 0
     const state = (_a = req.query) === null || _a === void 0 ? void 0 : _a.state;
     const tokenInfo = (0, shared_1.createUserTokens)(req.user);
     (0, shared_1.setAuthCookie)(res, tokenInfo);
-    res.redirect(`${config_1.ENV.FRONTEND_BASE_URL}/${!state.startsWith("/") ? state : ""}`);
+    res.redirect(`${config_1.ENV.FRONTEND_BASE_URL}/${!state.startsWith('/') ? state : ''}`);
 }));

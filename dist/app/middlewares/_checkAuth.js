@@ -17,19 +17,21 @@ const user_model_1 = require("../modules/user/user.model");
 const user_interface_1 = require("../modules/user/user.interface");
 const checkAuth = (...authRoles) => (0, shared_1.catchAsync)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const accessToken = req.headers.authorization || req.cookies.accessToken;
+    console.log(accessToken, 'access');
     if (!accessToken)
-        throw new errors_1.AppError(403, "No Token Received!");
+        throw new errors_1.AppError(403, 'No Token Received!');
+    console.log(accessToken, 'accesstioken');
     const verifiedToken = (0, shared_1.verifyToken)(accessToken, config_1.ENV.JWT_ACCESS_SECRET);
     const user = yield user_model_1.User.findOne({ email: verifiedToken.email });
     if (!user)
-        throw new errors_1.AppError(shared_1.HTTP_CODE.BAD_REQUEST, "User does not Exist");
+        throw new errors_1.AppError(shared_1.HTTP_CODE.BAD_REQUEST, 'User does not Exist');
     if (user.isActive === user_interface_1.IsActive.BLOCKED ||
         user.isActive === user_interface_1.IsActive.INACTIVE)
         throw new errors_1.AppError(shared_1.HTTP_CODE.BAD_REQUEST, `User is ${user.isActive}`);
     if (user.isDeleted)
-        throw new errors_1.AppError(shared_1.HTTP_CODE.BAD_REQUEST, "User is deleted");
+        throw new errors_1.AppError(shared_1.HTTP_CODE.BAD_REQUEST, 'User is deleted');
     if (!authRoles.includes(verifiedToken.role))
-        throw new errors_1.AppError(403, "You are not permitted to view this route");
+        throw new errors_1.AppError(403, 'You are not permitted to view this route');
     req.user = verifiedToken;
     next();
 }));
