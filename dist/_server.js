@@ -28,39 +28,39 @@ class NeelaWalletServer {
                 console.error(`Failed to start the Server`, error instanceof Error && error);
                 if (this.server.listening) {
                     mongoose_1.default.connection.close(true);
-                    this.server.close((err) => {
+                    this.server.close(err => {
                         if (err) {
-                            console.log("Error closing server:", err);
+                            console.log('Error closing server:', err);
                             process.exit(1);
                         }
                         else {
-                            console.log("Server has been closed");
+                            console.log('Server has been closed');
                         }
                     });
                 }
-                console.log("Database disconnected");
+                console.log('Database disconnected');
                 process.exit(1);
             }
         });
         this.shutdown = () => __awaiter(this, void 0, void 0, function* () {
             try {
                 if (this.server.listening) {
-                    this.server.close((err) => {
+                    this.server.close(err => {
                         if (err) {
-                            console.log("Error closing server:", err);
+                            console.log('Error closing server:', err);
                             process.exit(1);
                         }
                         else {
-                            console.log("Server has been closed");
+                            console.log('Server has been closed');
                         }
                     });
                 }
                 yield mongoose_1.default.connection.close(false);
-                console.log("Database disconnected");
+                console.log('Database disconnected');
                 process.exit(0);
             }
             catch (error) {
-                console.log("Error during shutdown:", error);
+                console.log('Error during shutdown:', error);
                 process.exit(1);
             }
         });

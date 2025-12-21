@@ -72,7 +72,11 @@ exports.credentialLogin = (0, shared_1.catchAsync)((req, res, next) => __awaiter
             return next(new errors_1.AppError(shared_1.HTTP_CODE.UNAUTHORIZED, info === null || info === void 0 ? void 0 : info.message));
         const _a = user.toObject(), { password } = _a, rest = __rest(_a, ["password"]);
         const tokens = (0, shared_1.createUserTokens)(user);
-        (0, shared_1.setAuthCookie)(res, tokens);
+        console.log(tokens, '================');
+        (0, shared_1.setAuthCookie)(res, {
+            accessToken: tokens.accessToken,
+            refreshToken: tokens.refreshToken,
+        });
         (0, shared_1.sendResponse)(res, {
             success: true,
             status: shared_1.HTTP_CODE.CREATED,

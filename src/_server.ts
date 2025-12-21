@@ -1,7 +1,7 @@
-import { createServer, Server } from "http";
-import app from "@/_app";
-import { ENV } from "@/config";
-import mongoose from "mongoose";
+import { createServer, Server } from 'http';
+import app from '@/_app';
+import { ENV } from '@/config';
+import mongoose from 'mongoose';
 
 class NeelaWalletServer {
   protected server: Server;
@@ -23,16 +23,16 @@ class NeelaWalletServer {
 
       if (this.server.listening) {
         mongoose.connection.close(true);
-        this.server.close((err) => {
+        this.server.close(err => {
           if (err) {
-            console.log("Error closing server:", err);
+            console.log('Error closing server:', err);
             process.exit(1);
           } else {
-            console.log("Server has been closed");
+            console.log('Server has been closed');
           }
         });
       }
-      console.log("Database disconnected");
+      console.log('Database disconnected');
       process.exit(1);
     }
   };
@@ -40,22 +40,22 @@ class NeelaWalletServer {
   shutdown = async () => {
     try {
       if (this.server.listening) {
-        this.server.close((err) => {
+        this.server.close(err => {
           if (err) {
-            console.log("Error closing server:", err);
+            console.log('Error closing server:', err);
             process.exit(1);
           } else {
-            console.log("Server has been closed");
+            console.log('Server has been closed');
           }
         });
       }
 
       await mongoose.connection.close(false);
-      console.log("Database disconnected");
+      console.log('Database disconnected');
 
       process.exit(0);
     } catch (error) {
-      console.log("Error during shutdown:", error);
+      console.log('Error during shutdown:', error);
       process.exit(1);
     }
   };

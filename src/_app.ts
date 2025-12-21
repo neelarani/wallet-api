@@ -1,13 +1,13 @@
-import express from "express";
-import passport from "passport";
-import expressSession from "express-session";
-import cookieParser from "cookie-parser";
-import cors from "cors";
-import "@/config/_passport.config";
-import { globalErrorHandler, notFound } from "@/app/errors";
-import { rootResponse } from "@/shared";
-import router from "@/app/routes";
-import { corsOptions, ENV } from "@/config";
+import express from 'express';
+import passport from 'passport';
+import expressSession from 'express-session';
+import cookieParser from 'cookie-parser';
+import cors from 'cors';
+import '@/config/_passport.config';
+import { globalErrorHandler, notFound } from '@/app/errors';
+import { rootResponse } from '@/shared';
+import router from '@/app/routes';
+import { corsOptions, ENV } from '@/config';
 
 const app = express();
 
@@ -21,15 +21,15 @@ app.use(
   })
 );
 
-app.set("json spaces", 2);
+app.set('json spaces', 2);
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use(passport.initialize());
 app.use(passport.session());
-app.all("/", rootResponse);
-app.use("/api/v1", router);
+app.all('/', rootResponse);
+app.use('/api/v1', router);
 app.use(notFound);
 app.use(globalErrorHandler);
 

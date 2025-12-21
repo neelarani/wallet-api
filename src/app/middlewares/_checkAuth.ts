@@ -9,11 +9,9 @@ export const checkAuth = (...authRoles: string[]) =>
   catchAsync(async (req, res, next) => {
     const accessToken = req.headers.authorization || req.cookies.accessToken;
 
-    console.log(accessToken, 'access');
+    console.log('cookies:', req.cookies);
 
     if (!accessToken) throw new AppError(403, 'No Token Received!');
-
-    console.log(accessToken, 'accesstioken');
 
     const verifiedToken = verifyToken(
       accessToken,

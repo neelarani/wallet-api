@@ -1,5 +1,7 @@
-import { ENV } from "@/config";
-import { Response } from "express";
+import { ENV } from '@/config';
+import { Response } from 'express';
+
+const isProd = process.env.NODE_ENV === 'production';
 
 export const setAuthCookie = (
   res: Response,
@@ -9,18 +11,18 @@ export const setAuthCookie = (
   }
 ) => {
   if (tokenInfo.accessToken) {
-    res.cookie("accessToken", tokenInfo.accessToken, {
+    res.cookie('accessToken', tokenInfo.accessToken, {
       httpOnly: true,
-      secure: true,
-      sameSite: "none",
+      secure: isProd,
+      sameSite: isProd ? 'none' : 'lax',
       maxAge: ENV.ACCESS_COOKIE_EXPIRE_TIME,
     });
   }
   if (tokenInfo.refreshToken) {
-    res.cookie("refreshToken", tokenInfo.refreshToken, {
+    res.cookie('refreshToken', tokenInfo.refreshToken, {
       httpOnly: true,
-      secure: true,
-      sameSite: "none",
+      secure: isProd,
+      sameSite: isProd ? 'none' : 'lax',
       maxAge: ENV.REFRESH_COOKIE_EXPIRE_TIME,
     });
   }
