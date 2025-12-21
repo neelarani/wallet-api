@@ -17,7 +17,7 @@ const user_model_1 = require("../modules/user/user.model");
 const user_interface_1 = require("../modules/user/user.interface");
 const checkAuth = (...authRoles) => (0, shared_1.catchAsync)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const accessToken = req.headers.authorization || req.cookies.accessToken;
-    console.log(accessToken, 'token');
+    console.log('cookies:', req.cookies);
     if (!accessToken)
         throw new errors_1.AppError(403, 'No Token Received!');
     const verifiedToken = (0, shared_1.verifyToken)(accessToken, config_1.ENV.JWT_ACCESS_SECRET);
