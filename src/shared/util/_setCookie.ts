@@ -1,29 +1,27 @@
 import { ENV } from '@/config';
 import { Response } from 'express';
+import ms, { StringValue } from 'ms';
 
 const isProd = process.env.NODE_ENV === 'production';
 
 export const setAuthCookie = (
   res: Response,
-  tokenInfo: {
-    accessToken?: string;
-    refreshToken?: string;
-  }
+  tokens: { accessToken?: string; refreshToken?: string }
 ) => {
-  if (tokenInfo.accessToken) {
-    res.cookie('accessToken', tokenInfo.accessToken, {
+  if (tokens.accessToken) {
+    res.cookie('accessToken', tokens.accessToken, {
       httpOnly: true,
       secure: isProd,
       sameSite: isProd ? 'none' : 'lax',
-      maxAge: ENV.ACCESS_COOKIE_EXPIRE_TIME,
+      maxAge: 86400000,
     });
   }
-  if (tokenInfo.refreshToken) {
-    res.cookie('refreshToken', tokenInfo.refreshToken, {
+  if (tokens.refreshToken) {
+    res.cookie('refreshToken', tokens.refreshToken, {
       httpOnly: true,
       secure: isProd,
       sameSite: isProd ? 'none' : 'lax',
-      maxAge: ENV.REFRESH_COOKIE_EXPIRE_TIME,
+      maxAge: 604800000,
     });
   }
 };

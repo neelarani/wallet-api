@@ -11,7 +11,20 @@ import { corsOptions, ENV } from '@/config';
 
 const app = express();
 
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
+
+app.use(
+  cors({
+    origin: ['http://localhost:5173'],
+    credentials: true,
+  })
+);
+
+app.set('json spaces', 2);
+app.use(express.json());
+
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
 
 app.use(
   expressSession({
@@ -20,11 +33,6 @@ app.use(
     saveUninitialized: false,
   })
 );
-
-app.set('json spaces', 2);
-app.use(cookieParser());
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
 
 app.use(passport.initialize());
 app.use(passport.session());

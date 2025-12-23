@@ -1,12 +1,12 @@
-import { AppError } from "@/app/errors";
-import { IAuthProvider, IToAgentStatus, IUser, Role } from "./user.interface";
-import { ToAgent, User } from "./user.model";
-import bcryptjs from "bcryptjs";
-import { ENV } from "@/config";
-import { useQuery } from "mongoose-qb";
-import { Wallet } from "../wallet/wallet.model";
-import { JwtPayload } from "jsonwebtoken";
-import { HTTP_CODE, sendMail, uploadToCloudinary } from "@/shared";
+import { AppError } from '@/app/errors';
+import { IAuthProvider, IToAgentStatus, IUser, Role } from './user.interface';
+import { ToAgent, User } from './user.model';
+import bcryptjs from 'bcryptjs';
+import { ENV } from '@/config';
+import { useQuery } from 'mongoose-qb';
+import { Wallet } from '../wallet/wallet.model';
+import { JwtPayload } from 'jsonwebtoken';
+import { HTTP_CODE, sendMail, uploadToCloudinary } from '@/shared';
 
 export const registerUser = async (Payload: IUser) => {
   const { email, password, phone, ...rest } = Payload || {};
@@ -17,15 +17,15 @@ export const registerUser = async (Payload: IUser) => {
 
   if (existingUser) {
     if (existingUser.email === email) {
-      throw new AppError(400, "User already exists with the same email!");
+      throw new AppError(400, 'User already exists with the same email!');
     }
     if (existingUser.phone === phone) {
-      throw new AppError(400, "User already exists with the same phone!");
+      throw new AppError(400, 'User already exists with the same phone!');
     }
   }
 
   const authProvider: IAuthProvider = {
-    provider: "credentials",
+    provider: 'credentials',
     providerId: email,
   };
 
@@ -119,12 +119,12 @@ export const updatePassword = async (
 ) => {
   const user = await User.findById(decodedToken.userId);
 
-  if (!user) throw new AppError(404, "User not found!");
+  if (!user) throw new AppError(404, 'User not found!');
 
-  if (user.role === "SUPER_ADMIN")
+  if (user.role === 'SUPER_ADMIN')
     throw new AppError(
       400,
-      "SUPER_ADMIN can not update password from dashboard!"
+      'SUPER_ADMIN can not update password from dashboard!'
     );
 
   const hashPassword = bcryptjs.hashSync(
@@ -143,28 +143,28 @@ export const getAllUsers = async (query: Record<string, string>) => {
     filter: true,
     sort: true,
     paginate: true,
-    excludes: ["password", "auths", "phone"],
-    populate: [{ path: "wallet", select: "balance -_id" }],
-    search: ["email"],
+    excludes: ['password', 'auths', 'phone'],
+    populate: [{ path: 'wallet', select: 'balance -_id' }],
+    search: ['email'],
   });
   return users;
 };
 
 export const getSingleUser = async (userId: string) => {
-  const user = await User.findById(userId).select("-password");
+  const user = await User.findById(userId).select('-password');
 
   if (!user) {
-    throw new AppError(HTTP_CODE.NOT_FOUND, "User Not Found!");
+    throw new AppError(HTTP_CODE.NOT_FOUND, 'User Not Found!');
   }
 
   return user;
 };
 
 export const getMyProfile = async (decodedToken: JwtPayload) => {
-  const user = await User.findById(decodedToken.userId).select("-password");
+  const user = await User.findById(decodedToken.userId).select('-password');
 
   if (!user) {
-    throw new AppError(HTTP_CODE.NOT_FOUND, "User Not Found!");
+    throw new AppError(HTTP_CODE.NOT_FOUND, 'User Not Found!');
   }
 
   return user;
@@ -175,7 +175,7 @@ export const requestForAgent = async (decodedToken: JwtPayload) => {
 
   const user = await User.findById(userId);
 
-  if (!user) throw new AppError(404, "User not found!");
+  if (!user) throw new AppError(404, 'User not found!');
 
   if (user.role !== Role.USER)
     throw new AppError(HTTP_CODE.BAD_REQUEST, `You are already an agent!`);
@@ -202,10 +202,10 @@ export const requestForAgent = async (decodedToken: JwtPayload) => {
     );
 
   const info = await sendMail({
-    subject: "Request for Agent in Neela Wallet API",
+    subject: 'Request for Agent in Neela Wallet API',
     to: email,
     template: {
-      name: "request-for-agent",
+      name: 'request-for-agent',
       data: {
         name: user.name,
         status: toAgent.status,

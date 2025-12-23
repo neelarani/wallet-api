@@ -7,9 +7,8 @@ import { IsActive } from '../modules/user/user.interface';
 
 export const checkAuth = (...authRoles: string[]) =>
   catchAsync(async (req, res, next) => {
-    const accessToken = req.headers.authorization || req.cookies.accessToken;
-
-    console.log('cookies:', req.cookies);
+    const accessToken =
+      req.cookies.accessToken || req.headers.authorization?.split(' ')[1];
 
     if (!accessToken) throw new AppError(403, 'No Token Received!');
 
@@ -31,8 +30,14 @@ export const checkAuth = (...authRoles: string[]) =>
     if (user.isDeleted)
       throw new AppError(HTTP_CODE.BAD_REQUEST, 'User is deleted');
 
-    if (!authRoles.includes(verifiedToken.role))
-      throw new AppError(403, 'You are not permitted to view this route');
+    const userRole = verifiedToken.role?.toUpperCase();
+    const allowedRoles = authRoles.map(r => r.toUpperCase());
+    if (!allowedRoles.includes(userRole!)) {
+      throw new AppError(
+        HTTP_CODE.FORBIDDEN,
+        'You are not permitted to view this route'
+      );
+    }
 
     req.user = verifiedToken;
     next();
