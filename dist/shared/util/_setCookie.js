@@ -1,23 +1,22 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.setAuthCookie = void 0;
-const config_1 = require("../../config");
 const isProd = process.env.NODE_ENV === 'production';
-const setAuthCookie = (res, tokenInfo) => {
-    if (tokenInfo.accessToken) {
-        res.cookie('accessToken', tokenInfo.accessToken, {
+const setAuthCookie = (res, tokens) => {
+    if (tokens.accessToken) {
+        res.cookie('accessToken', tokens.accessToken, {
             httpOnly: true,
             secure: isProd,
             sameSite: isProd ? 'none' : 'lax',
-            maxAge: config_1.ENV.ACCESS_COOKIE_EXPIRE_TIME,
+            maxAge: 86400000,
         });
     }
-    if (tokenInfo.refreshToken) {
-        res.cookie('refreshToken', tokenInfo.refreshToken, {
+    if (tokens.refreshToken) {
+        res.cookie('refreshToken', tokens.refreshToken, {
             httpOnly: true,
             secure: isProd,
             sameSite: isProd ? 'none' : 'lax',
-            maxAge: config_1.ENV.REFRESH_COOKIE_EXPIRE_TIME,
+            maxAge: 604800000,
         });
     }
 };

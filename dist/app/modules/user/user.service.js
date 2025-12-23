@@ -39,14 +39,14 @@ const registerUser = (Payload) => __awaiter(void 0, void 0, void 0, function* ()
     });
     if (existingUser) {
         if (existingUser.email === email) {
-            throw new errors_1.AppError(400, "User already exists with the same email!");
+            throw new errors_1.AppError(400, 'User already exists with the same email!');
         }
         if (existingUser.phone === phone) {
-            throw new errors_1.AppError(400, "User already exists with the same phone!");
+            throw new errors_1.AppError(400, 'User already exists with the same phone!');
         }
     }
     const authProvider = {
-        provider: "credentials",
+        provider: 'credentials',
         providerId: email,
     };
     const hashPassword = bcryptjs_1.default.hashSync(password, bcryptjs_1.default.genSaltSync(config_1.ENV.BCRYPT_SALT_ROUND));
@@ -93,9 +93,9 @@ exports.editProfile = editProfile;
 const updatePassword = (decodedToken, data) => __awaiter(void 0, void 0, void 0, function* () {
     const user = yield user_model_1.User.findById(decodedToken.userId);
     if (!user)
-        throw new errors_1.AppError(404, "User not found!");
-    if (user.role === "SUPER_ADMIN")
-        throw new errors_1.AppError(400, "SUPER_ADMIN can not update password from dashboard!");
+        throw new errors_1.AppError(404, 'User not found!');
+    if (user.role === 'SUPER_ADMIN')
+        throw new errors_1.AppError(400, 'SUPER_ADMIN can not update password from dashboard!');
     const hashPassword = bcryptjs_1.default.hashSync(data.password, bcryptjs_1.default.genSaltSync(config_1.ENV.BCRYPT_SALT_ROUND));
     yield user_model_1.User.findByIdAndUpdate(user._id, {
         password: hashPassword,
@@ -108,25 +108,25 @@ const getAllUsers = (query) => __awaiter(void 0, void 0, void 0, function* () {
         filter: true,
         sort: true,
         paginate: true,
-        excludes: ["password", "auths", "phone"],
-        populate: [{ path: "wallet", select: "balance -_id" }],
-        search: ["email"],
+        excludes: ['password', 'auths', 'phone'],
+        populate: [{ path: 'wallet', select: 'balance -_id' }],
+        search: ['email'],
     });
     return users;
 });
 exports.getAllUsers = getAllUsers;
 const getSingleUser = (userId) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = yield user_model_1.User.findById(userId).select("-password");
+    const user = yield user_model_1.User.findById(userId).select('-password');
     if (!user) {
-        throw new errors_1.AppError(shared_1.HTTP_CODE.NOT_FOUND, "User Not Found!");
+        throw new errors_1.AppError(shared_1.HTTP_CODE.NOT_FOUND, 'User Not Found!');
     }
     return user;
 });
 exports.getSingleUser = getSingleUser;
 const getMyProfile = (decodedToken) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = yield user_model_1.User.findById(decodedToken.userId).select("-password");
+    const user = yield user_model_1.User.findById(decodedToken.userId).select('-password');
     if (!user) {
-        throw new errors_1.AppError(shared_1.HTTP_CODE.NOT_FOUND, "User Not Found!");
+        throw new errors_1.AppError(shared_1.HTTP_CODE.NOT_FOUND, 'User Not Found!');
     }
     return user;
 });
@@ -135,7 +135,7 @@ const requestForAgent = (decodedToken) => __awaiter(void 0, void 0, void 0, func
     const { userId, email } = decodedToken;
     const user = yield user_model_1.User.findById(userId);
     if (!user)
-        throw new errors_1.AppError(404, "User not found!");
+        throw new errors_1.AppError(404, 'User not found!');
     if (user.role !== user_interface_1.Role.USER)
         throw new errors_1.AppError(shared_1.HTTP_CODE.BAD_REQUEST, `You are already an agent!`);
     let toAgent = yield user_model_1.ToAgent.findOne({ user: user._id });
@@ -151,10 +151,10 @@ const requestForAgent = (decodedToken) => __awaiter(void 0, void 0, void 0, func
     if (!toAgent)
         throw new errors_1.AppError(shared_1.HTTP_CODE.INTERNAL_SERVER_ERROR, `Failed to request for agent.`);
     const info = yield (0, shared_1.sendMail)({
-        subject: "Request for Agent in Neela Wallet API",
+        subject: 'Request for Agent in Neela Wallet API',
         to: email,
         template: {
-            name: "request-for-agent",
+            name: 'request-for-agent',
             data: {
                 name: user.name,
                 status: toAgent.status,

@@ -51,7 +51,7 @@ exports.registerUser = (0, shared_1.catchAsync)((req, res) => __awaiter(void 0, 
     (0, shared_1.sendResponse)(res, {
         success: true,
         status: shared_1.HTTP_CODE.OK,
-        message: "User registration has been completed successfully!",
+        message: 'User registration has been completed successfully!',
         data: user,
     });
 }));
@@ -59,7 +59,7 @@ exports.editProfile = (0, shared_1.catchAsync)((req, res) => __awaiter(void 0, v
     (0, shared_1.sendResponse)(res, {
         success: true,
         status: shared_1.HTTP_CODE.OK,
-        message: "User profile updated successfully!",
+        message: 'User profile updated successfully!',
         data: yield service.editProfile(req.user, req.file, req.body),
     });
 }));
@@ -67,34 +67,35 @@ exports.updatePassword = (0, shared_1.catchAsync)((req, res) => __awaiter(void 0
     (0, shared_1.sendResponse)(res, {
         success: true,
         status: shared_1.HTTP_CODE.OK,
-        message: "Password updated!",
+        message: 'Password updated!',
         data: yield service.updatePassword(req.user, req.body),
     });
 }));
 exports.getAllUsers = (0, shared_1.catchAsync)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    (0, shared_1.sendResponse)(res, Object.assign({ success: true, status: shared_1.HTTP_CODE.OK, message: "Retrieve all user successfully!" }, (yield service.getAllUsers(req.query))));
+    (0, shared_1.sendResponse)(res, Object.assign({ success: true, status: shared_1.HTTP_CODE.OK, message: 'Retrieve all user successfully!' }, (yield service.getAllUsers(req.query))));
 }));
 exports.getSingleUser = (0, shared_1.catchAsync)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     (0, shared_1.sendResponse)(res, {
         success: true,
         status: shared_1.HTTP_CODE.OK,
-        message: "Retrieve user successfully!",
+        message: 'Retrieve user successfully!',
         data: yield service.getSingleUser(req.params.id),
     });
 }));
 exports.getMyProfile = (0, shared_1.catchAsync)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const user = yield service.getMyProfile(req.user);
     (0, shared_1.sendResponse)(res, {
         success: true,
         status: shared_1.HTTP_CODE.OK,
-        message: "Retrieve myProfile successfully!",
-        data: yield service.getMyProfile(req.user),
+        message: 'Retrieve myProfile successfully!',
+        data: user,
     });
 }));
 exports.requestForAgent = (0, shared_1.catchAsync)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     (0, shared_1.sendResponse)(res, {
         success: true,
         status: shared_1.HTTP_CODE.OK,
-        message: "Request for agent has been sended successfully!",
+        message: 'Request for agent has been sended successfully!',
         data: yield service.requestForAgent(req.user),
     });
 }));
