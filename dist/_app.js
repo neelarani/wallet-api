@@ -16,7 +16,7 @@ const config_1 = require("./config");
 const app = (0, express_1.default)();
 // app.use(cors(corsOptions));
 app.use((0, cors_1.default)({
-    origin: ['http://localhost:5173'],
+    origin: ['http://localhost:5173', 'https://wallet-app-mu-sooty.vercel.app'],
     credentials: true,
 }));
 app.set('json spaces', 2);
