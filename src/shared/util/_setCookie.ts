@@ -1,6 +1,5 @@
 import { ENV } from '@/config';
 import { Response } from 'express';
-import ms, { StringValue } from 'ms';
 
 const isProd = process.env.NODE_ENV === 'production';
 
