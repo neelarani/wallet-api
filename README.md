@@ -10,10 +10,10 @@ error handling, and Zod validation for peace of mind.
 
 ## 🌐 Base URL
 
-| Environment | URL                                    |
-| ----------- | -------------------------------------- |
-| Development | `http://localhost:<PORT>/api/v1`       |
-| Production  | `https://wallet-app.vercel.app/api/v1` |
+| Environment | URL                                        |
+| ----------- | ------------------------------------------ |
+| Development | `http://localhost:<PORT>/api/v1`           |
+| Production  | `https://wallet-api-psi.vercel.app/api/v1` |
 
 ## 🚀 Key Features
 
@@ -111,7 +111,7 @@ POST /auth/login
 ### URL
 
 ```
-https://wallet-app.vercel.app/api/v1/auth/login
+https://wallet-api-psi.vercel.app/api/v1/auth/login
 ```
 
 ### Request Body
@@ -162,8 +162,8 @@ https://wallet-app.vercel.app/api/v1/auth/login
 
 ```bash
 # 1. Clone the repo
-git clone https://gitlab.com/neelarani/wallet-app
-cd wallet-app
+git clone https://gitlab.com/neelarani/wallet-api
+cd wallet-api
 
 # 2. Install dependencies
 npm install
@@ -177,4 +177,4 @@ npm run dev
 
 ## ❤️ Made with Love
 
-Neela
+Neela Rani
